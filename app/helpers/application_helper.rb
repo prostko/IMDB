@@ -1,4 +1,17 @@
 module ApplicationHelper
+
+  def current_user
+    @current_user ||=User.find_by_id(session[:user_id])
+  end
+
+  def require_user
+    redirect_to root_path unless current_user
+  end
+
+  # def authorized
+  #   current_user.id == @wish_list.user_id
+  # end
+
   URL = "http://www.omdbapi.com"
 
   class MovieInfo
@@ -33,7 +46,7 @@ module ApplicationHelper
     if parsed_response[] == "true"
       MovieInfo.new(parsed_response)
     else
-       return false
+      false
     end
   end
 
@@ -44,12 +57,13 @@ module ApplicationHelper
     if parsed_response == "true"
       MovieInfo.new(parsed_response)
     elsif
-      return false
+      false
     end
   end
 
   def parser(thing_to_parse)
     JSON.parse(thing_to_parse)
   end
+
 
 end
