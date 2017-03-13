@@ -7,7 +7,7 @@ module ApplicationHelper
     redirect_to root_path unless current_user
   end
 
-  def authorized
-    current_user.id == @wish_list.user_id
-  end
+  # def authorized
+  #   current_user.id == @wish_list.user_id
+  # end
 end
