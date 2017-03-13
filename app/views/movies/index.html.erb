@@ -1,0 +1,11 @@
+<h1>Welcome to DBC IMDB</h1>
+
+<section>
+  <h3>Search for a movie</h3>
+    <!-- Not sure where this form will be sending the information too. Using /search as a place holder until logic/routes for implementing searches is concrete. -->
+    <%= form_tag("/search", method: "get") do %>
+      <%= label_tag(:search_form, "Search for:") %>
+      <%= text_field_tag(:search_form) %>
+      <%= submit_tag("Search") %>
+    <% end %>
+</section>
