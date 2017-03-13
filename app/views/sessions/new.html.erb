@@ -1,9 +1,17 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
 
+
+<div class="container">
+
+<h2>Let's Login </h2>
 
 <%= form_for(:session, url: login_path) do |f| %>
-<%=  %>
 
+<%= f.label :email  %>
+<%= f.email_field :email  %><br><br>
 
+<%= f.label :password %>
+<%= f.password_field :password %><br><br>
+
+<%= f.submit "Log In" %>
 <%end%>
+</div>
