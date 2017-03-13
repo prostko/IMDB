@@ -39,7 +39,7 @@ module ApplicationHelper
 
   def get_movie_where( hash_for_find )
     response = RestClient.get URL, {params: hash_for_find}
-    parsed_response = JSON.parse(response.body)
+    parsed_response = parser(response.body)
 
     if parsed_response == "true"
       MovieInfo.new(parsed_response)
