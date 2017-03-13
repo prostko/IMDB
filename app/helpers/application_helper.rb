@@ -33,7 +33,7 @@ module ApplicationHelper
     if parsed_response[] == "true"
       MovieInfo.new(parsed_response)
     else
-       return false
+      false
     end
   end
 
@@ -44,7 +44,7 @@ module ApplicationHelper
     if parsed_response == "true"
       MovieInfo.new(parsed_response)
     elsif
-      return false
+      false
     end
   end
 
