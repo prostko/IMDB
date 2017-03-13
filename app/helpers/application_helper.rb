@@ -28,7 +28,7 @@ module ApplicationHelper
 
   def get_movie_by_id( imbd_id )
     response = RestClient.get URL, {params: {i: imdb_id}}
-    parsed_response = JSON.parse(response.body)
+    parsed_response = parser(response.body)
 
     if parsed_response[] == "true"
       MovieInfo.new(parsed_response)
@@ -46,6 +46,10 @@ module ApplicationHelper
     elsif
       return false
     end
+  end
+
+  def parser(thing_to_parse)
+    JSON.parse(thing_to_parse)
   end
 
 end
