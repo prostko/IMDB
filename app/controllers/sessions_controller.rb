@@ -1,9 +1,21 @@
 class SessionsController < ApplicationController
-
-
-  def login
+  def new
   end
 
-  def logout
+  def create
+    @user = User.find_by(params [:email])
+    if @user && @user.authenticate(params[:password])
+      log_in user
+      redirect_to user
+    else
+      render "new"
+    end
   end
+
+  def destroy
+    log_out
+    redirect_to '/'
+  end
+
+
 end
