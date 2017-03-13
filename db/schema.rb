@@ -37,28 +37,29 @@ ActiveRecord::Schema.define(version: 20170313150118) do
   end
 
   create_table "movies", force: :cascade do |t|
-    t.string   "title"
-    t.string   "plot"
-    t.string   "actors"
-    t.string   "rated"
-    t.string   "released"
-    t.string   "runtime"
-    t.string   "genre"
-    t.string   "director"
-    t.string   "writer"
-    t.string   "language"
-    t.string   "country"
-    t.string   "awards"
-    t.string   "poster"
-    t.string   "metascore"
-    t.string   "imdb_rating"
-    t.string   "imdb_votes"
-    t.string   "imdb_id"
-    t.string   "type"
-    t.string   "response"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["imdb_id"], name: "index_movies_on_imdb_id", using: :btree
+    t.string   "Title"
+    t.string   "Year"
+    t.string   "Plot"
+    t.string   "Actors"
+    t.string   "Rated"
+    t.string   "Released"
+    t.string   "Runtime"
+    t.string   "Genre"
+    t.string   "Director"
+    t.string   "Writer"
+    t.string   "Language"
+    t.string   "Country"
+    t.string   "Awards"
+    t.string   "Poster"
+    t.string   "Metascore"
+    t.string   "imdbRating"
+    t.string   "imdbVotes"
+    t.string   "imdbID"
+    t.string   "Type"
+    t.string   "Response"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["imdbID"], name: "index_movies_on_imdbID", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
