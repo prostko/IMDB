@@ -21,7 +21,8 @@ class MoviesController < ApplicationController
     if @movies
       render "movies/index"
     else
-      redirect_to :back
+      @errors = 'Movie not found' # need to implement error message partials
+      render 'movies/index'
     end
   end
 
