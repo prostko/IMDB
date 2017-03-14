@@ -10,13 +10,18 @@
 </section>
 
 <% if @movies %>
-<section id="movie-link-list">
-  <h1>movies</h1>
-  <ul>
-    <% @movies.each do |movie| %>
-      <li><%= link_to movie.Title, "/movies/#{movie.id}" %></li>
-    <% end %>
-  </ul>
-</section>
+
+<h1>Movies</h1>
+<ul class="collection">
+  <% @movies.each do |movie| %>
+  <!-- <li><%= movie.Title %></li> -->
+  <li class="collection-item avatar">
+  <img src="<%=movie.Poster %>" alt="" class="circle">
+  <span class="title"> <%= link_to movie.Title, movie %> </span> 
+  <a href="#watch_list_create_path" class="secondary-content"><i class="material-icons">library_add</i></a>   
+  </li>
+  <% end %>
+</ul>
 
 <% end %>
+
