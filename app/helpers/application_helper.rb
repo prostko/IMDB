@@ -51,4 +51,27 @@ module ApplicationHelper
     end
   end
 
+  def activity_logger(action, obj_to_log)
+    time = " at #{Time.now}"
+
+    if current_user
+      case action
+      when 'search'
+        unshift_session("You searched for #{obj_to_log}" + time)
+      when 'movie'
+        unshift_session("You viewed #{obj_to_log.Title}"+ time)
+      when 'like'
+        unshift_session("You liked #{obj_to_log.Title}" + time)
+      when 'comment'
+        unshift_session("You commented on #{obj_to_log.Title}" + time)
+      end
+    end
+  end
+
+  def unshift_session(thing_to_unshift)
+    if current_user
+      session[:history].unshift(thing_to_unshift)
+    end
+  end
+
 end

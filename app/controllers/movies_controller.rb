@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
     # render 'show'
     @movie = Movie.find_by(id: params[:id])
     # @comments = @movie.comments
+    activity_logger('movie', @movie) if @movie
     @comment = Comment.new
 
   end
@@ -22,11 +23,14 @@ class MoviesController < ApplicationController
   def search
     @movies = get_movies_by_title(params['search_form'])
 
-    @movies.map! do |movie|
-      movie = Movie.find_by(imdbID: movie.imdbID)
+    if @movies
+      @movies.map! do |movie|
+        movie = Movie.find_by(imdbID: movie.imdbID)
+      end
     end
 
     if @movies
+      activity_logger('search', params['search_form'])
       render "movies/index"
     else
       @errors = 'Movie not found' # need to implement error message partials
@@ -36,10 +40,10 @@ class MoviesController < ApplicationController
 
   def like
     require_user
-
     @movie = find_movie(params[:id])
-    @movie.likes.create(user_id: session[:user_id])
+    like = @movie.likes.create(user_id: session[:user_id])
 
+    activity_logger('like', @movie) if like.valid?
     redirect_to :back
   end
 

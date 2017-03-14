@@ -6,7 +6,15 @@
 
   <div class="col s6">
     <h3><%=@user.name%>'s Favorite Movies:</h3>
+    <% if @favorited_movies %>
+      <% @favorited_movies.each do |movie| %>
+        <ul>
+          <li><%= link_to movie.Title, movie %></li>
+        </ul>
+      <% end %>
+    <% else %>
       <p>You have no Favorite movies yet :-{ </p>
+    <% end %>
   </div>
 
   <div class="col s6">
@@ -26,4 +34,17 @@
 
   </div>
 
+</div>
+
+<div class="">
+  <h3>Activity List</h3>
+  <% if session[:history] %>
+  <ul>
+    <% session[:history][0..10].each do |activity| %>
+    <p><%= activity %></p>
+    <% end %>
+  </ul>
+  <% else %>
+    <p>You haven't done anything yet!</p>
+  <% end %>
 </div>
