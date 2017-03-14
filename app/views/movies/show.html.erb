@@ -22,7 +22,15 @@
     <li><em>IMDB Votes:</em><%= @movie.imdbVotes %></li>
   </ul>
 </section>
-<!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
-<section id="converstaions">
+
+<section id="like-movie-form">
+  <% if logged_in? %>
+    <%= form_tag("/movies/#{@movie.id}/like", method: "post") do %>
+      <%= submit_tag("Like") %>
+    <% end %>
+  <% end %>
+</section>
+
+<section id="conversations">
   <p>"display comments thread when that feature gets implemented"</p>
 </section>
