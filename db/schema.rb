@@ -68,13 +68,13 @@ ActiveRecord::Schema.define(version: 20170313150118) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "watch_lists", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "movie_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["movie_id"], name: "index_watch_lists_on_movie_id"
-    t.index ["user_id"], name: "index_watch_lists_on_user_id"
+  create_table "watchlists", force: :cascade do |t|
+    t.integer  "user_id",     null: false
+    t.string   "imdbID",      null: false
+    t.string   "movie_title", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_watchlists_on_user_id", using: :btree
   end
 
 end
