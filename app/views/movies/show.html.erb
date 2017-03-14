@@ -58,16 +58,22 @@
 <!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
 <section id="converstaions">
   <div style="text-align:center;">
-  <h3>Comments</h3>
+  
+  <h3>Comments:</h3>
   <%if @comments%>
     <% @comments.each do |comment|%>
       <p><%=comment.content%></p>
       <p><%=comment.user.name%></p>
-      <p><%=comment.created_at%></p>
-    <% end %>
+      <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
+      <% if comment.user_id == current_user.id %>
+      <%= link_to 'Delete', comment_path(comment), method: :delete %> 
+      <%end%> 
+    <%end%>
   <%end%>
 
   <%= form_for @comment do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :movie_id, value: @movie.id %>
     <%= f.label "Comment" %>
     <%= f.text_area :content %><br>
     <%= f.submit  "Post" %>
