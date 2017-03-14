@@ -1,4 +1,3 @@
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -14,11 +13,13 @@
 ActiveRecord::Schema.define(version: 20170314190306) do
 
   create_table "comments", force: :cascade do |t|
-    t.string   "content",    null: false
-    t.integer  "movie_id",   null: false
-    t.integer  "user_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "content",        null: false
+    t.integer  "movie_id",       null: false
+    t.integer  "user_id",        null: false
+    t.integer  "commentable_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["movie_id"], name: "index_comments_on_movie_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
@@ -72,14 +73,13 @@ ActiveRecord::Schema.define(version: 20170314190306) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "watch_lists", force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "movie_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["movie_id"], name: "index_watch_lists_on_movie_id"
-    t.index ["user_id"], name: "index_watch_lists_on_user_id"
+  create_table "watchlists", force: :cascade do |t|
+    t.integer  "user_id",     null: false
+    t.string   "imdbID",      null: false
+    t.string   "movie_title", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["user_id"], name: "index_watchlists_on_user_id"
   end
 
 end
-

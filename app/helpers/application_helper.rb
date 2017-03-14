@@ -52,7 +52,8 @@ module ApplicationHelper
   end
 
   def activity_logger(action, obj_to_log)
-    time = " at #{Time.now}"
+    current_time = Time.now.strftime("%I:%M%p %m/%d/%Y")
+    time = " at #{current_time}"
 
     if current_user
       case action
