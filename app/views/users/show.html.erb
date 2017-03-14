@@ -29,7 +29,7 @@
        <img src="<%=movie.Poster %>" alt="" class="circle">
        <span class="title"> <%= link_to movie.Title, movie %> </span><a href="#delete_from_watch_list" class="secondary-content"><i class="material-icons">grade</i></a>
        </li>
-     
+
     <% end %>
   <% else %>
       <p>You have no Movies in Favorite List yet </p>
@@ -44,7 +44,7 @@
   <% if session[:history] %>
   <ul>
     <% session[:history][0..10].each do |activity| %>
-    <p><%= activity %></p>
+    <p><strong><%= activity[0] %></strong> <em><%= activity[1] %></em></p>
     <% end %>
   </ul>
   <% else %>
