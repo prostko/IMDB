@@ -8,6 +8,10 @@ module ApplicationHelper
     redirect_to root_path unless current_user
   end
 
+  def logged_in?
+    !!current_user
+  end
+
   # def authorized
   #   current_user.id == @wish_list.user_id
   # end
@@ -19,6 +23,7 @@ module ApplicationHelper
 
   def get_movies_by_title( movie_title )
     url = "http://www.omdbapi.com"
+
     response = RestClient.get url, {params: {s: movie_title}}
     parsed_responses = parser(response.body)
 
@@ -26,7 +31,6 @@ module ApplicationHelper
       movie_objects = parsed_responses['Search'].map do |resp|
         Movie.create(resp)
       end
-
       return movie_objects
     else
       false

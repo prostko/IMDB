@@ -10,12 +10,13 @@
 </section>
 
 <% if @movies %>
-<h1>movies</h1>
-<ul>
-  <% @movies.each do |movie| %>
-  <!-- <li><%= movie.Title %></li> -->
-  <li><%= link_to movie.Title, movie %></li>
+<section id="movie-link-list">
+  <h1>movies</h1>
+  <ul>
+    <% @movies.each do |movie| %>
+      <li><%= link_to movie.Title, "/movies/#{movie.id}" %></li>
+    <% end %>
+  </ul>
+</section>
 
-  <% end %>
-</ul>
 <% end %>
