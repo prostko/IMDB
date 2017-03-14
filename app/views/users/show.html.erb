@@ -1,2 +1,17 @@
 
-<h1> Hello <%=@user.name%> </h1>
+<h1> Hello, <%=@user.name%> ! </h1>
+
+<section id="favorite-movies-container">
+  <h3>Favorite Movies</h3>
+    <% if @user.favorited_movies.empty? %>
+      <p>This is where your favorite videos will go</p>
+    <% else %>
+      <% @user.favorited_movies.each do |movie| %>
+        <li><%= link_to movie.Title, movie %></li>
+      <% end %>
+    <% end %>
+</section>
+
+<section id="watch-list-container">
+  <h3>Watch List</h3>
+</section>
