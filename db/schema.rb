@@ -1,4 +1,3 @@
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -54,10 +53,10 @@ ActiveRecord::Schema.define(version: 20170313150118) do
     t.string   "imdbVotes"
     t.string   "imdbID"
     t.string   "Type"
-    t.string   "totalSeasons"
     t.string   "Response"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "totalSeasons"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["imdbID"], name: "index_movies_on_imdbID"
   end
 
@@ -79,4 +78,3 @@ ActiveRecord::Schema.define(version: 20170313150118) do
   end
 
 end
-
