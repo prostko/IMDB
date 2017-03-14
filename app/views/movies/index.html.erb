@@ -1,4 +1,3 @@
-<h1>movies#index</h1>
 <h1>Welcome to DBC IMDB</h1>
 <section>
   <h3>Search for a movie</h3>
@@ -11,12 +10,16 @@
 </section>
 
 <% if @movies %>
-<h1>movies</h1>
-<ul>
+<h1>Movies</h1>
+<ul class="collection">
   <% @movies.each do |movie| %>
   <!-- <li><%= movie.Title %></li> -->
-  <li><%= link_to movie.Title, movie %></li>
-
+  <li class="collection-item avatar">
+  <img src="<%=movie.Poster %>" alt="" class="circle">
+  <span class="title"> <%= link_to movie.Title, movie %> </span> 
+  <a href="#watch_list_create_path" class="secondary-content"><i class="material-icons">library_add</i></a>   
+  </li>
   <% end %>
 </ul>
 <% end %>
+

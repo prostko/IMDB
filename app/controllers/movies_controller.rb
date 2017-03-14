@@ -12,6 +12,8 @@ class MoviesController < ApplicationController
     #commented out the render show. Rails knows to look for the show page in the movies views.
     # render 'show'
     @movie = Movie.find_by(id: params[:id])
+    # @comments = @movie.comments
+    @comment = Comment.new
   end
 
   def search

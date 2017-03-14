@@ -1,8 +1,8 @@
 <!-- Movie title will be place here. Probably wrapped in header tags. Will be able to display the title when information is parsed from OMDB API -->
-<h1>Movie title place holder</h1>
+<h1 class= "center"><%= @movie.Title %></h1>
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
-<section id="movie-info">
+<section class= "center", id="movie-info">
   <img src="<%= @movie.Poster %>">
   <ul>
     <li><%= @movie.Title %></li>
@@ -24,5 +24,21 @@
 </section>
 <!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
 <section id="converstaions">
-  <p>"display comments thread when that feature gets implemented"</p>
+  <div style="text-align:center;">
+  <h3>Comments</h3>
+  <%if @comments%>
+    <% @comments.each do |comment|%>
+      <p><%=comment.content%></p>
+      <p><%=comment.user.name%></p>
+      <p><%=comment.created_at%></p>
+    <% end %>
+  <%end%>
+
+  <%= form_for @comment do |f| %>
+    <%= f.label "Comment" %>
+    <%= f.text_area :content %><br>
+    <%= f.submit  "Post" %>
+  <%end%>
+
+ </div>
 </section>
