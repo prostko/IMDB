@@ -57,8 +57,9 @@ ActiveRecord::Schema.define(version: 20170313150118) do
     t.string   "imdbID"
     t.string   "Type"
     t.string   "Response"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "totalSeasons"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.index ["imdbID"], name: "index_movies_on_imdbID", using: :btree
   end
 
