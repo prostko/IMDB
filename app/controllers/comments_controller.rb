@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+
   def new
     @comment = Post.new(user_id: current_user.id, movie_id: params[:user_id])
   end
@@ -30,4 +31,5 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:content, movie_id: params[:id], user_id: current_user.id)
   end 
+
 end

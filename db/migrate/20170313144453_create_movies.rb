@@ -24,6 +24,7 @@ class CreateMovies < ActiveRecord::Migration[5.0]
       t.string :imdbID, unique: true, index: true
       t.string :Type
       t.string :Response
+      t.string :totalSeasons
 
       t.timestamps
     end

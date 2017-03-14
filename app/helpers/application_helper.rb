@@ -8,6 +8,10 @@ module ApplicationHelper
     redirect_to root_path unless current_user
   end
 
+  def logged_in?
+    !!current_user
+  end
+
   # def authorized
   #   current_user.id == @wish_list.user_id
   # end
@@ -19,11 +23,11 @@ module ApplicationHelper
 
   def get_movies_by_title( movie_title )
     url = "http://www.omdbapi.com"
+
     response = RestClient.get url, {params: {s: movie_title}}
     parsed_responses = parser(response.body)
-    # parsed_response > 0 ? (return Movie.new(parsed_response)) : false
 
-    if !parsed_responses.empty?
+    if parsed_responses['Error'].nil?
       movie_objects = parsed_responses['Search'].map do |resp|
         Movie.create(resp)
       end
@@ -33,20 +37,18 @@ module ApplicationHelper
     end
   end
 
-  def get_movie_idMovie( for_find )
+  def get_movie_by_id( id_to_find )
     url = "http://www.omdbapi.com"
 
-    response = RestClient.get url, {i: for_find}
+    response = RestClient.get url, {params: {i: id_to_find}}
     parsed_response = parser(response.body)
     @movie = Movie.find_by(imdbID: parsed_response['imdbID'])
 
-    if parsed_response['Response'] == "true"
+    if parsed_response['Response'] == "True"
       @movie.update(parsed_response)
     elsif
       false
     end
   end
-
-
 
 end

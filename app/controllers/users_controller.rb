@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   end
 
   def create
+
     @new_user = User.new(user_params)
     if @new_user.save
       session[:user_id] = @new_user.id
@@ -12,6 +13,7 @@ class UsersController < ApplicationController
     else
       render 'new'
     end
+
   end
 
   # def edit

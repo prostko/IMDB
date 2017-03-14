@@ -1,11 +1,13 @@
+
 <!-- Movie title will be place here. Probably wrapped in header tags. Will be able to display the title when information is parsed from OMDB API -->
 <h1 class= "center"><%= @movie.Title %></h1>
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
 <section class= "center", id="movie-info">
+
   <img src="<%= @movie.Poster %>">
   <ul>
-    <li><%= @movie.Title %></li>
+    <h2><%= @movie.Title %></h2>
     <li><%= @movie.Year %></li>
     <li><em>Released:</em> <%= @movie.Released %></li>
     <li><em>Runtime:</em><%= @movie.Runtime %></li>
@@ -21,7 +23,18 @@
     <li><em>IMDB Rating:</em><%= @movie.imdbRating %></li>
     <li><em>IMDB Votes:</em><%= @movie.imdbVotes %></li>
   </ul>
+
+  <h4>Likes : <%= @movie.likes.count %></h4>
 </section>
+
+<section id="like-movie-form">
+  <% if logged_in? %>
+    <%= form_tag("/movies/#{@movie.id}/like", method: "post") do %>
+      <%= submit_tag("&#128077;".html_safe) %>
+    <% end %>
+  <% end %>
+</section>
+
 <!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
 <section id="converstaions">
   <div style="text-align:center;">
@@ -41,4 +54,5 @@
   <%end%>
 
  </div>
+
 </section>
