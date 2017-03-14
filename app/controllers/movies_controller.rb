@@ -17,7 +17,8 @@ class MoviesController < ApplicationController
     @comments = @movie.comments
     activity_logger('movie', @movie) if @movie
     @comment = Comment.new
-
+    @related_movies = @movie.related_movies
+    
   end
 
   def search
