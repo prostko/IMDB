@@ -7,7 +7,7 @@ class MoviesController < ApplicationController
 
 
   def show
-    @movie = Movie.find_by(id: params[:id])
+    @movie = find_movie(params[:id])
   end
 
   def search
@@ -26,7 +26,16 @@ class MoviesController < ApplicationController
   end
 
   def like
+    require_user
 
+    @movie = find_movie(params[:id])
+    @movie.likes.create(user_id: session[:user_id])
+
+    redirect_to :back
   end
 
+  private
+  def find_movie(id)
+    Movie.find_by(id: id)
+  end
 end
