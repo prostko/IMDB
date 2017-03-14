@@ -1,30 +1,4 @@
 
-<<<<<<< HEAD
-<h1> Hello, <%=@user.name%> ! </h1>
-
-<section id="favorite-movies-container">
-  <h3>Favorite Movies</h3>
-    <% if @user.favorited_movies.empty? %>
-      <p>This is where your favorite videos will go</p>
-    <% else %>
-      <% @user.favorited_movies.each do |movie| %>
-        <li><%= link_to movie.Title, movie %></li>
-      <% end %>
-    <% end %>
-</section>
-
-<section id="watch-list-container">
-  <h3>Watch List</h3>
-    <p>This is where your watch list will go</p>
-  <!-- <% if @user %>                               waiting for the watchlist
-    <p>This is where your watch list will go</p>
-  <% else %>
-    <% @user.favorited_movies.each do |movie| %>
-      <li><%= link_to movie.Title, movie %></li>
-    <% end %>
-  <% end %> -->
-</section>
-=======
 <div class="row">
   <div class="col s12">
    <h2><%=@user.name%></h2>
@@ -32,7 +6,15 @@
 
   <div class="col s6">
     <h3><%=@user.name%>'s Favorite Movies:</h3>
+    <% if @favorited_movies %>
+      <% @favorited_movies.each do |movie| %>
+        <ul>
+          <li><%= link_to movie.Title, movie %></li>
+        </ul>
+      <% end %>
+    <% else %>
       <p>You have no Favorite movies yet :-{ </p>
+    <% end %>
   </div>
 
   <div class="col s6">
@@ -53,4 +35,16 @@
   </div>
 
 </div>
->>>>>>> 80870d31283053e976dc690106a73a4926f8d38d
+
+<div class="">
+  <h3>Activity List</h3>
+  <% if session[:history] %>
+  <ul>
+    <% session[:history].each do |activity| %>
+    <p><%= activity %></p>
+    <% end %>
+  </ul>
+  <% else %>
+    <p>You haven't done anything yet!</p>
+  <% end %>
+</div>
