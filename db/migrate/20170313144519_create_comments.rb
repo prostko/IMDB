@@ -4,7 +4,6 @@ class CreateComments < ActiveRecord::Migration[5.0]
       t.string :content, null: false
       t.references :movie, null: false
       t.references :user, null: false
-      t.references :commentable, ploymorphic: true, index: true 
 
 
       t.timestamps

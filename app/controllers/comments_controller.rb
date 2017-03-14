@@ -7,9 +7,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @movie = @comment.movie
-    
+    @comments = @movie.comments
     if @comment.save
-      redirect_to movie_path()
+      redirect_to movie_path(@movie)
     else
       render 'movies/show'
     end
@@ -20,8 +20,10 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = Comment.find_by(id: params[:id])
+    @comment = Comment.find(params[:id])
+    @movie =@comment.movie
     @comment.destroy
+    redirect_to movie_path(@movie)
   end
 
   def show
@@ -29,7 +31,7 @@ class CommentsController < ApplicationController
    
   private
   def comment_params
-    params.require(:comment).permit(:content, movie_id: params[:id], user_id: current_user.id)
+    params.require(:comment).permit(:content, :movie_id, :user_id)
   end 
 
 end
