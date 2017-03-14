@@ -40,12 +40,13 @@ module ApplicationHelper
     parsed_response = parser(response.body)
     @movie = Movie.find_by(imdbID: parsed_response['imdbID'])
 
-    if parsed_response == "true"
-      MovieInfo.new(parsed_response)
-    else
-      return false
+    if parsed_response['Response'] == "true"
+      @movie.update(parsed_response)
+    elsif
+      false
     end
   end
+
 
 
 end
