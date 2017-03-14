@@ -8,7 +8,7 @@ class Movie < ApplicationRecord
 
   after_create :update_movie_info
 
-
+private
   def update_movie_info
     get_movie_by_id(self.imdbID)
   end
