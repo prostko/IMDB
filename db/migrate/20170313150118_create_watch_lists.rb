@@ -1,8 +1,9 @@
 class CreateWatchLists < ActiveRecord::Migration[5.0]
   def change
-    create_table :watch_lists do |t|
-    t.references :user, null: false
-    t.references :movie, null: false
+    create_table :watchlists do |t|
+      t.references :user, null: false
+      t.string :imdbID, null: false
+      t.string :movie_title, null: false
 
       t.timestamps
     end

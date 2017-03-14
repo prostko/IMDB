@@ -35,6 +35,26 @@
   <% end %>
 </section>
 
+
+<section>
+  <% if @errors %>
+    <% @errors.each do |err| %>
+      <%=err %>
+    <% end %>
+  <% end %>
+  <% if logged_in? %>
+    <%= form_tag("/watchlists", method: "post") do %>
+      <%= hidden_field_tag("user_id", current_user.id) %>
+      <%= hidden_field_tag("imdbID", @movie.imdbID) %>
+      <%= hidden_field_tag("movie_title", @movie.Title) %>
+      <%= submit_tag("Add movie to your watchlist") %>
+    <% end %>
+    <% else %>
+      <%= "You need to be logged in to save movies to your watch list." %>
+  <% end %>
+</section>
+
+
 <!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
 <section id="converstaions">
   <div style="text-align:center;">
@@ -58,6 +78,7 @@
     <%= f.text_area :content %><br>
     <%= f.submit  "Post" %>
   <%end%>
+
 
  </div>
 

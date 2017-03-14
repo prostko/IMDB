@@ -1,8 +1,10 @@
 class Movie < ApplicationRecord
   include ApplicationHelper
   has_many :likes
+
   has_many :comments
   has_many :watchlists
+
   validates :Title, presence: true
   validates :imdbID, uniqueness: true
 
