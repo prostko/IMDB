@@ -14,10 +14,11 @@
 
 <section id="watch-list-container">
   <h3>Watch List</h3>
-  <!-- <% if @user? %>                               waiting for the watchlist
+    <p>This is where your watch list will go</p>
+  <!-- <% if @user %>                               waiting for the watchlist
     <p>This is where your watch list will go</p>
   <% else %>
-    <% @user.......each do |movie| %>
+    <% @user.favorited_movies.each do |movie| %>
       <li><%= link_to movie.Title, movie %></li>
     <% end %>
   <% end %> -->
