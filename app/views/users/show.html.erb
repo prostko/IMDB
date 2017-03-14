@@ -1,2 +1,50 @@
 
-<h1> Hello <%=@user.name%> </h1>
+<div class="row">
+  <div class="col s12">
+   <h2><%=@user.name%></h2>
+  </div>
+
+  <div class="col s6">
+    <h3><%=@user.name%>'s Favorite Movies:</h3>
+    <% if @favorited_movies %>
+      <% @favorited_movies.each do |movie| %>
+        <ul>
+          <li><%= link_to movie.Title, movie %></li>
+        </ul>
+      <% end %>
+    <% else %>
+      <p>You have no Favorite movies yet :-{ </p>
+    <% end %>
+  </div>
+
+  <div class="col s6">
+  <h3>Watch list</h3>
+  <%if @watch_list%>
+    <% @watch_lists.each do |movie|%>
+      <p><%=movie.content %></p>
+      <p><%=movie.user.name %></p>
+      <p><%=movie.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y") %></p>
+      <% if movie.user_id == current_user.id %>
+      <%= link_to 'Delete Movie from Watch List', watch_list_path(movie), method: :delete %>
+     <% end %>
+    <% end %>
+  <% else %>
+      <p>You have no Movies in Favorite List yet </p>
+  <%end%>
+
+  </div>
+
+</div>
+
+<div class="">
+  <h3>Activity List</h3>
+  <% if session[:history] %>
+  <ul>
+    <% session[:history][0..10].each do |activity| %>
+    <p><%= activity %></p>
+    <% end %>
+  </ul>
+  <% else %>
+    <p>You haven't done anything yet!</p>
+  <% end %>
+</div>

@@ -12,9 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170313150118) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "comments", force: :cascade do |t|
     t.string   "content",        null: false
     t.integer  "movie_id",       null: false
@@ -22,9 +19,9 @@ ActiveRecord::Schema.define(version: 20170313150118) do
     t.integer  "commentable_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
-    t.index ["movie_id"], name: "index_comments_on_movie_id", using: :btree
-    t.index ["user_id"], name: "index_comments_on_user_id", using: :btree
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.index ["movie_id"], name: "index_comments_on_movie_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -32,8 +29,8 @@ ActiveRecord::Schema.define(version: 20170313150118) do
     t.integer  "user_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["movie_id"], name: "index_likes_on_movie_id", using: :btree
-    t.index ["user_id"], name: "index_likes_on_user_id", using: :btree
+    t.index ["movie_id"], name: "index_likes_on_movie_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -60,7 +57,7 @@ ActiveRecord::Schema.define(version: 20170313150118) do
     t.string   "totalSeasons"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.index ["imdbID"], name: "index_movies_on_imdbID", using: :btree
+    t.index ["imdbID"], name: "index_movies_on_imdbID"
   end
 
   create_table "users", force: :cascade do |t|
