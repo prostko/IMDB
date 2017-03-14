@@ -1,11 +1,8 @@
-<!-- Movie title will be place here. Probably wrapped in header tags. Will be able to display the title when information is parsed from OMDB API -->
-<h1>Movie title place holder</h1>
 
-<!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
 <section id="movie-info">
   <img src="<%= @movie.Poster %>">
   <ul>
-    <li><%= @movie.Title %></li>
+    <h2><%= @movie.Title %></h2>
     <li><%= @movie.Year %></li>
     <li><em>Released:</em> <%= @movie.Released %></li>
     <li><em>Runtime:</em><%= @movie.Runtime %></li>
@@ -21,6 +18,8 @@
     <li><em>IMDB Rating:</em><%= @movie.imdbRating %></li>
     <li><em>IMDB Votes:</em><%= @movie.imdbVotes %></li>
   </ul>
+
+  <h4>Likes : <%= @movie.likes.count %></h4>
 </section>
 
 <section id="like-movie-form">
@@ -30,6 +29,8 @@
     <% end %>
   <% end %>
 </section>
+
+
 
 <section id="conversations">
   <p>"display comments thread when that feature gets implemented"</p>
