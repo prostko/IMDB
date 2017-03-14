@@ -3,23 +3,25 @@
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
 <section id="movie-info">
-  <img src="Poster key from parsed data">
+  <img src="<%= @movie.Poster %>">
   <ul>
-    <li>"Released"</li>
-    <li>"Rating"</li>
-    <li>"Runtime"</li>
-    <li>"genre"</li>
-    <li>"Director"</li>
-    <li>"Writer"</li>
-    <li>"Actors"</li>
-    <li>"Plot"</li>
-    <li>"Language"</li>
-    <li>"Country"</li>
-    <li>"metascore"</li>
-    <li>"imdb rating"</li>
+    <li><%= @movie.Title %></li>
+    <li><%= @movie.Year %></li>
+    <li><em>Released:</em> <%= @movie.Released %></li>
+    <li><em>Runtime:</em><%= @movie.Runtime %></li>
+    <li><em>Genre:</em><%= @movie.Genre %></li>
+    <li><em>Director:</em><%= @movie.Director %></li>
+    <li><em>Writer:</em><%= @movie.Writer %></li>
+    <li><em>Actors:</em><%= @movie.Actors %></li>
+    <li><em>Language:</em><%= @movie.Language %></li>
+    <li><em>Country:</em><%= @movie.Country %></li>
+    <li><em>Awards:</em><%= @movie.Awards %></li>
+    <li><em>Year:</em><%= @movie.Year %></li>
+    <li><em>Metascore:</em><%= @movie.Metascore %></li>
+    <li><em>IMDB Rating:</em><%= @movie.imdbRating %></li>
+    <li><em>IMDB Votes:</em><%= @movie.imdbVotes %></li>
   </ul>
 </section>
-
 <!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
 <section id="converstaions">
   <p>"display comments thread when that feature gets implemented"</p>

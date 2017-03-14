@@ -1,11 +1,22 @@
+<h1>movies#index</h1>
 <h1>Welcome to DBC IMDB</h1>
-
 <section>
   <h3>Search for a movie</h3>
     <!-- Not sure where this form will be sending the information too. Using /search as a place holder until logic/routes for implementing searches is concrete. -->
-    <%= form_tag("/search", method: "get") do %>
+    <%= form_tag("/search", method: "post") do %>
       <%= label_tag(:search_form, "Search for:") %>
-      <%= text_field_tag(:search_form) %>
+      <%= text_field_tag(:search_form, nil, required: true) %>
       <%= submit_tag("Search") %>
     <% end %>
 </section>
+
+<% if @movies %>
+<h1>movies</h1>
+<ul>
+  <% @movies.each do |movie| %>
+  <!-- <li><%= movie.Title %></li> -->
+  <li><%= link_to movie.Title, movie %></li>
+
+  <% end %>
+</ul>
+<% end %>
