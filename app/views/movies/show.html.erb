@@ -30,6 +30,24 @@
   <% end %>
 </section>
 
+<section>
+  <% if @errors %>
+    <% @errors.each do |err| %>
+      <%=err %>
+    <% end %>
+  <% end %>
+  <% if logged_in? %>
+    <%= form_tag("/watchlists", method: "post") do %>
+      <%= hidden_field_tag("user_id", current_user.id) %>
+      <%= hidden_field_tag("imdbID", @movie.imdbID) %>
+      <%= hidden_field_tag("movie_title", @movie.Title) %>
+      <%= submit_tag("Add movie to your watchlist") %>
+    <% end %>
+    <% else %>
+      <%= "You need to be logged in to save movies to your watch list." %>
+  <% end %>
+</section>
+
 
 
 <section id="conversations">
