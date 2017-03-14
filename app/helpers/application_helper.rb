@@ -56,7 +56,7 @@ module ApplicationHelper
 
     if parsed_response == "true"
       MovieInfo.new(parsed_response)
-    elsif
+    else
       return false
     end
   end
@@ -64,6 +64,5 @@ module ApplicationHelper
   def parser(thing_to_parse)
     JSON.parse(thing_to_parse)
   end
-
 
 end
