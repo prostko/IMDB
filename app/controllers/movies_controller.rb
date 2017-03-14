@@ -40,9 +40,9 @@ class MoviesController < ApplicationController
   def like
     require_user
     @movie = find_movie(params[:id])
-    @movie.likes.create(user_id: session[:user_id])
-binding.pry
-    activity_logger('like', @movie)
+    like = @movie.likes.create(user_id: session[:user_id])
+
+    activity_logger('like', @movie) if like.valid?
     redirect_to :back
   end
 

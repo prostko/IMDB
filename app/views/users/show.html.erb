@@ -40,7 +40,7 @@
   <h3>Activity List</h3>
   <% if session[:history] %>
   <ul>
-    <% session[:history].each do |activity| %>
+    <% session[:history][0..10].each do |activity| %>
     <p><%= activity %></p>
     <% end %>
   </ul>
