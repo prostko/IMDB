@@ -15,6 +15,7 @@ class MoviesController < ApplicationController
     # render 'show'
     @movie = Movie.find_by(id: params[:id])
     # @comments = @movie.comments
+    activity_logger('movie', @movie) if @movie
     @comment = Comment.new
 
   end
