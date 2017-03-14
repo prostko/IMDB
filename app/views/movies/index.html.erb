@@ -5,7 +5,7 @@
     <!-- Not sure where this form will be sending the information too. Using /search as a place holder until logic/routes for implementing searches is concrete. -->
     <%= form_tag("/search", method: "post") do %>
       <%= label_tag(:search_form, "Search for:") %>
-      <%= text_field_tag(:search_form) %>
+      <%= text_field_tag(:search_form, nil, required: true) %>
       <%= submit_tag("Search") %>
     <% end %>
 </section>
