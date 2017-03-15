@@ -18,7 +18,7 @@ class MoviesController < ApplicationController
     activity_logger('movie', @movie) if @movie
     @comment = Comment.new
     @related_movies = @movie.related_movies
-    
+
   end
 
   def search
@@ -45,6 +45,15 @@ class MoviesController < ApplicationController
     like = @movie.likes.create(user_id: session[:user_id])
 
     activity_logger('like', @movie) if like.valid?
+    redirect_to :back
+  end
+
+  def watchlist
+    require_user
+    @movie = find_movie(params[:id])
+    watchlist = @movie.watchlists.create(user_id: session[:user_id], movie_id: params[:movie_id])
+
+    activity_logger('watchlist', @movie) if watchlist.valid?
     redirect_to :back
   end
 

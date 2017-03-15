@@ -1,5 +1,5 @@
 module ApplicationHelper
-
+  
   def current_user
     @current_user ||=User.find_by_id(session[:user_id])
   end
@@ -65,6 +65,8 @@ module ApplicationHelper
         unshift_session(["You liked '#{obj_to_log.Title}'", time])
       when 'comment'
         unshift_session(["You commented on '#{obj_to_log.Title}'", time])
+      when 'watchlist'
+        unshift_session(["You added '#{obj_to_log.Title}' to your watch list", time])
       end
     end
   end
