@@ -13,13 +13,11 @@
 ActiveRecord::Schema.define(version: 20170314190306) do
 
   create_table "comments", force: :cascade do |t|
-    t.string   "content",        null: false
-    t.integer  "movie_id",       null: false
-    t.integer  "user_id",        null: false
-    t.integer  "commentable_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+    t.string   "content",    null: false
+    t.integer  "movie_id",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_comments_on_movie_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
   end

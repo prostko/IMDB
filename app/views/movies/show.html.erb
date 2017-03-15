@@ -84,12 +84,14 @@
 
 </section>
 
-<section id="related-movie-container">
-  <% if @related_movies %>
-  <ul>
-    <% @related_movies.each do |movie| %>
-    <li><%= link_to image_tag(movie.Poster), movie %></li>
+<section id="related-movie-container container">
+  <div style="display:flex;flex-direction:row;justify-content:center;">
+    <% if @related_movies %>
+    <ul>
+      <% @related_movies.each do |movie| %>
+      <li style="display:inline-block;"><%= link_to image_tag(movie.Poster, size: '140x200'), movie %></li>
+      <% end %>
+    </ul>
     <% end %>
-  </ul>
-  <% end %>
+  </div>
 </section>
