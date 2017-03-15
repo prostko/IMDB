@@ -1,4 +1,3 @@
-
 <!-- Movie title will be place here. Probably wrapped in header tags. Will be able to display the title when information is parsed from OMDB API -->
 
 
@@ -55,10 +54,9 @@
             <% end %>
         <% end %>
         <% if logged_in? %>
-          <%= form_tag("/watchlists", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+          <%= form_tag("/movies/#{@movie.id}/watchlist", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
             <%= hidden_field_tag("user_id", current_user.id) %>
-            <%= hidden_field_tag("imdbID", @movie.imdbID) %>
-            <%= hidden_field_tag("movie_title", @movie.Title) %>
+            <%= hidden_field_tag("movie_id", @movie.id) %>
             <%= submit_tag("Add movie to your watchlist") %>
           <% end %>
         <% else %>
@@ -93,28 +91,45 @@
     <section id="converstaions">
       <div style="text-align:center;">
 
+       <h3>Comments:</h3>
+  <%if @comments%>
+    <% @comments.each do |comment|%>
+      <p><%=comment.content%></p>
+      <p><%=comment.user.name%></p>
+      <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
+      <% if comment.user_id == current_user.id %>
+      <%= link_to 'Delete Comment', comment_path(comment), method: :delete %>
 
-        <h3>Comments:</h3>
-        <%if @comments%>
-          <% @comments.each do |comment|%>
-            <p><%=comment.content%></p>
-            <p><%=comment.user.name%></p>
-            <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
-            <% if comment.user_id == current_user.id %>
-              <%= link_to 'Delete', comment_path(comment), method: :delete %>
-            <%end%>
+      <div style="text-align:right;">
+        <ul class="collection with-header">
+        <% if comment.conversations %>
+        <% comment.conversations.each do |conversation|%>
+        <p><%=conversation.content%></p>
+        <p><%=conversation.user.name%></p>
           <%end%>
         <%end%>
 
-        <%= form_for @comment do |f| %>
-          <%= f.hidden_field :user_id, value: current_user.id %>
-          <%= f.hidden_field :movie_id, value: @movie.id %>
-          <%= f.label "Comment" %>
-          <%= f.text_area :content %><br>
-          <%= f.submit  "Post" %>
-        <%end%>
+        <%= form_for [comment, @conversation] do |f| %>
+       <%= f.hidden_field :user_id, value: current_user.id %>
+       <%= f.hidden_field :comment_id, value: comment.id %>
+       <%= f.label "Conversation" %>
+       <%= f.text_area :content %><br>
+       <%= f.submit  "Post" %>
+       <%end%>
+        </ul>
+      </div>
 
+      <%end%>
+    <%end%>
+  <%end%>
 
+  <%= form_for @comment do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :movie_id, value: @movie.id %>
+    <%= f.label "Comment" %>
+    <%= f.text_area :content %><br>
+    <%= f.submit  "Comment" %>
+  <%end%>
       </div>
     </section>
   </div>

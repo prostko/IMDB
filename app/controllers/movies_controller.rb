@@ -7,14 +7,9 @@ class MoviesController < ApplicationController
 
 
   def show
-
-    #user response will be passed into the helper method created to get data from the API. A helper method will pull the necessary data regarding comments on the particular movie or show in question. The return result
-    # @response =
-
-    #commented out the render show. Rails knows to look for the show page in the movies views.
-    # render 'show'
     @movie = Movie.find_by(id: params[:id])
     @comments = @movie.comments
+    @conversation = Conversation.new
     activity_logger('movie', @movie) if @movie
     @comment = Comment.new
     @related_movies = @movie.related_movies
@@ -48,6 +43,13 @@ class MoviesController < ApplicationController
     redirect_to :back
   end
 
+  def destroy_like
+    @movie = Movie.find(params[:id])
+    @like = Like.where(movie_id: @movie.id, user_id: session[:user_id])
+    @like.first.destroy
+    redirect_to :back
+  end
+
   def watchlist
     require_user
     @movie = find_movie(params[:id])
@@ -55,6 +57,14 @@ class MoviesController < ApplicationController
 
     activity_logger('watchlist', @movie) if watchlist.valid?
     redirect_to :back
+  end
+
+  def delete_from_watchlist
+    movie = Movie.find_by(id: params[:id])
+    @entry = Watchlist.where(movie_id: movie.id, user_id: current_user.id)
+
+    @entry.first.destroy
+    redirect_to "/users/#{current_user.id}"
   end
 
   private

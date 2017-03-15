@@ -24,6 +24,7 @@ class UsersController < ApplicationController
     @favorited_movies = @user.favorited_movies
     @watchlist_movies = @user.watchlist_movies
     authorized(@user.id)
+
   end
 
   def destroy
