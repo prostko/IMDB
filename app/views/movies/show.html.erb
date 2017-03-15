@@ -116,7 +116,7 @@
         <%end%>
         </ul>
       </div>
-
+      <% if logged_in? %>
         <div class="conversation-post-box">
         <%= form_for [comment, @conversation] do |f| %>
         <%= f.hidden_field :user_id, value: current_user.id %>
@@ -124,7 +124,7 @@
         <%= f.label "Conversation" %><br>
         <%= f.text_area :content %><br><br>
         <%= f.submit  "Respond to This Post" %><br><br>
-
+          <%end%>
         <%end%>
 
       </div>
