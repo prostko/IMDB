@@ -1,27 +1,5 @@
 <h1>Welcome to DBC IMDB</h1>
-<section>
-  <h3>Search for a movie</h3>
-    <!-- Not sure where this form will be sending the information too. Using /search as a place holder until logic/routes for implementing searches is concrete. -->
-    <%= form_tag("/search", method: "post") do %>
-      <%= label_tag(:search_form, "Search for:") %>
-      <%= text_field_tag(:search_form, nil, required: true) %>
-      <%= submit_tag("Search") %>
-    <% end %>
-</section>
 
-<% if @movies %>
 
-<h1>Movies</h1>
-<ul class="collection">
-  <% @movies.each do |movie| %>
-  <!-- <li><%= movie.Title %></li> -->
-  <li class="collection-item avatar">
-  <img src="<%=movie.Poster %>" alt="" class="circle">
-  <span class="title"> <%= link_to movie.Title, movie %> </span> 
-  <a href="#watch_list_create_path" class="secondary-content"><i class="material-icons">library_add</i></a>   
-  </li>
-  <% end %>
-</ul>
 
-<% end %>
-
+  <%= react_component("App") %>
