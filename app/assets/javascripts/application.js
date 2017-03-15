@@ -14,8 +14,3 @@
 //= require jquery_ujs
 //= require_tree .
 //= require materialize
-$( document ).ready(function() {
-  $("#like-movie-form").on("click", function (e) {
-    e.preventDefault();
-  })
-});
