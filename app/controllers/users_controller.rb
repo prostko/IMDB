@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  include ApplicationHelper
 
   def new
     @new_user = User.new
@@ -19,8 +20,10 @@ class UsersController < ApplicationController
 
 
   def show
-      @user = User.find(params[:id])
-      @favorited_movies = @user.favorited_movies
+    require_user
+    @user = User.find(params[:id])
+    @favorited_movies = @user.favorited_movies
+    authorized(@user.id)
   end
 
 

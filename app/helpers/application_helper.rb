@@ -12,9 +12,9 @@ module ApplicationHelper
     !!current_user
   end
 
-  # def authorized
-  #   current_user.id == @wish_list.user_id
-  # end
+  def authorized(user_id)
+    redirect_to root_path unless user_id == current_user.id
+  end
 
 
   def parser(thing_to_parse)
