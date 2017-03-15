@@ -1,6 +1,6 @@
 <h1>IMDB Registration</h1>
-
 <%= form_for @new_user do |f| %>
+<%= render "/error_messages", :target => @new_user %>
   <p>
     <%= f.label :name %>
     <%= f.text_field :name %>
