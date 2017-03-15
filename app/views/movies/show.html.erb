@@ -43,10 +43,10 @@
     <% end %>
   <% end %>
   <% if logged_in? %>
-    <%= form_tag("/watchlists", method: "post") do %>
+    <%= form_tag("/movies/#{@movie.id}/watchlist", method: "post") do %>
       <%= hidden_field_tag("user_id", current_user.id) %>
-      <%= hidden_field_tag("imdbID", @movie.imdbID) %>
-      <%= hidden_field_tag("movie_title", @movie.Title) %>
+      <%= hidden_field_tag("movie_id", @movie.id) %>
+      <%= hidden_field_tag("Title", @movie.Title) %>
       <%= submit_tag("Add movie to your watchlist") %>
     <% end %>
     <% else %>
