@@ -52,19 +52,19 @@ module ApplicationHelper
   end
 
   def activity_logger(action, obj_to_log)
-    current_time = Time.now.strftime(": %I:%M%p on %m/%d/%Y")
+
     time = " at #{current_time}"
 
     if current_user
       case action
       when 'search'
-        unshift_session(["You searched for #{obj_to_log}", time])
+        unshift_session(["You searched for '#{obj_to_log}'", time])
       when 'movie'
-        unshift_session(["You viewed #{obj_to_log.Title}", time])
+        unshift_session(["You viewed '#{obj_to_log.Title}'", time])
       when 'like'
-        unshift_session(["You liked #{obj_to_log.Title}", time])
+        unshift_session(["You liked '#{obj_to_log.Title}'", time])
       when 'comment'
-        unshift_session(["You commented on #{obj_to_log.Title}", time])
+        unshift_session(["You commented on '#{obj_to_log.Title}'", time])
       end
     end
   end
@@ -73,6 +73,10 @@ module ApplicationHelper
     if current_user
       session[:history].unshift(thing_to_unshift)
     end
+  end
+
+  def current_time
+    Time.now.strftime(": %I:%M%p on %m/%d/%Y")
   end
 
 end

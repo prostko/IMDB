@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  include ApplicationHelper
   def new
   end
 
@@ -6,7 +7,7 @@ class SessionsController < ApplicationController
     @user = User.find_by(email: params[:session][:email])
     if @user && @user.authenticate(params[:session][:password])
       session[:user_id] = @user.id
-      session[:history] = ["Logged in at #{Time.now}"]
+      session[:history] = [["Logged in", " at #{current_time}"]]
       redirect_to user_path(@user)
     else
       render "new"
