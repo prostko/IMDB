@@ -1,0 +1,57 @@
+// Place all the styles related to the conversations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#conversations{
+  font-family: Courier;
+
+}
+
+#comment_content {
+  max-width: 70%;
+  float: center;
+
+}
+
+.new_conversation{
+  max-width: 70%;
+  float: center;
+  text-align: center;
+}
+
+
+.movie_title{
+  float: center;
+}
+
+
+img.card-content{
+  margin-top: 30px;
+}
+
+.new_conversation{
+  // border: 1px solid black;
+  float: center;
+margin-left: 15%;
+margin-bottom: 2%;
+}
+
+
+.conversation-post-box{
+  text-align:  center;
+  float: center;
+
+}
+
+.comment-box{
+  padding: 5%;
+  float: center;
+
+}
+
+
+.new_comment{
+  padding-top: 2%;
+  float: center;
+
+}

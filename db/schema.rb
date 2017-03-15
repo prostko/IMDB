@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170314190306) do
+ActiveRecord::Schema.define(version: 20170315152028) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "content",    null: false
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20170314190306) do
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_comments_on_movie_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "conversations", force: :cascade do |t|
+    t.string   "content",    null: false
+    t.integer  "comment_id", null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_conversations_on_comment_id"
+    t.index ["user_id"], name: "index_conversations_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -72,11 +82,11 @@ ActiveRecord::Schema.define(version: 20170314190306) do
   end
 
   create_table "watchlists", force: :cascade do |t|
-    t.integer  "user_id",     null: false
-    t.string   "imdbID",      null: false
-    t.string   "movie_title", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "user_id",    null: false
+    t.integer  "movie_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_watchlists_on_movie_id"
     t.index ["user_id"], name: "index_watchlists_on_user_id"
   end
 

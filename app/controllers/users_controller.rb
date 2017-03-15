@@ -18,15 +18,14 @@ class UsersController < ApplicationController
 
   end
 
-
   def show
     require_user
     @user = User.find(params[:id])
     @favorited_movies = @user.favorited_movies
+    @watchlist_movies = @user.watchlist_movies
     authorized(@user.id)
-    # binding.pry
-  end
 
+  end
 
   def destroy
   end
@@ -37,8 +36,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password)
   end
 
-  # def edit
-  # end
-  # def update
-  # end
 end
