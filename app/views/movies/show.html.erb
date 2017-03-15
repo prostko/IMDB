@@ -97,11 +97,15 @@
       <p><%=comment.content%></p>
       <p><%=comment.user.name%></p>
       <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
+
       <% if comment.user_id == current_user.id %>
-      <%= link_to 'Delete Comment', comment_path(comment), method: :delete %>
+      <%= link_to 'Delete Comment', comment_path(comment), method: :delete %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+
+<a class="btn-floating red"><i class="material-icons">mode_edit</i></a> <a class="btn-floating red"><i class="material-icons">delete</i></a>
 
       <div style="text-align:right;">
         <ul class="collection with-header">
+
         <% if comment.conversations %>
         <% comment.conversations.each do |conversation|%>
         <p><%=conversation.content%></p>
@@ -123,6 +127,7 @@
     <%end%>
   <%end%>
 
+  <%= render '/error_messages' %>
   <%= form_for @comment do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :movie_id, value: @movie.id %>
