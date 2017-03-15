@@ -3,8 +3,8 @@
 
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
-<section class= "center", id="movie-info">
-  <div class="">
+<section class= "center", id="movie-info" style="margin-bottom:50px;">
+  <div class="" >
     <ul>
       <h2><%= @movie.Title %></h2>
       <li><%= @movie.Year %></li>
@@ -12,7 +12,7 @@
     </ul>
   </div>
 
-  <div class="movie-card-container" style="display:inline-block;width:40%;">
+  <div class="movie-card-container" style="display:inline-block;width:55%;">
     <img class="card-content" src="<%= @movie.Poster %>" >
     <div class="card-tabs">
       <ul class="tabs">
@@ -58,66 +58,64 @@
       <% end %>
     </div>
   </section>
-  </div>
 
-
-
-  <h4>Likes : <%= @movie.likes.count %></h4>
-</section>
-
-<section id="like-movie-form">
-  <% if logged_in? %>
-    <%= form_tag("/movies/#{@movie.id}/like", method: "post") do %>
-      <%= submit_tag("&#128077;".html_safe) %>
+<div class="user-action-container" style="display:block;float:left;vertical-align:top;">
+  <section id="like-movie-form">
+    <h4>Likes : <%= @movie.likes.count %></h4>
+    <% if logged_in? %>
+    <%= form_tag("/movies/#{@movie.id}/like", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+    <%= submit_tag("&#128077;".html_safe) %>
     <% end %>
-  <% end %>
-</section>
-
-
-<section>
-  <% if @errors %>
+    <% end %>
+  </section>
+  <section id="watch-list-form">
+    <% if @errors %>
     <% @errors.each do |err| %>
-      <%=err %>
+    <%=err %>
     <% end %>
-  <% end %>
-  <% if logged_in? %>
-    <%= form_tag("/watchlists", method: "post") do %>
-      <%= hidden_field_tag("user_id", current_user.id) %>
-      <%= hidden_field_tag("imdbID", @movie.imdbID) %>
-      <%= hidden_field_tag("movie_title", @movie.Title) %>
-      <%= submit_tag("Add movie to your watchlist") %>
+    <% end %>
+    <% if logged_in? %>
+    <%= form_tag("/watchlists", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+    <%= hidden_field_tag("user_id", current_user.id) %>
+    <%= hidden_field_tag("imdbID", @movie.imdbID) %>
+    <%= hidden_field_tag("movie_title", @movie.Title) %>
+    <%= submit_tag("Add movie to your watchlist") %>
     <% end %>
     <% else %>
-      <%= "You need to be logged in to save movies to your watch list." %>
-  <% end %>
-</section>
+    <%= "You need to be logged in to save movies to your watch list." %>
+    <% end %>
+  </section>
+</div>
 
+  <section id="converstaions">
+    <div style="text-align:center;">
 
-<!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
-<section id="converstaions">
-  <div style="text-align:center;">
-
-  <h3>Comments:</h3>
-  <%if @comments%>
-    <% @comments.each do |comment|%>
+      <h3>Comments:</h3>
+      <%if @comments%>
+      <% @comments.each do |comment|%>
       <p><%=comment.content%></p>
       <p><%=comment.user.name%></p>
       <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
       <% if comment.user_id == current_user.id %>
       <%= link_to 'Delete', comment_path(comment), method: :delete %>
       <%end%>
-    <%end%>
-  <%end%>
+      <%end%>
+      <%end%>
 
-  <%= form_for @comment do |f| %>
-    <%= f.hidden_field :user_id, value: current_user.id %>
-    <%= f.hidden_field :movie_id, value: @movie.id %>
-    <%= f.label "Comment" %>
-    <%= f.text_area :content %><br>
-    <%= f.submit  "Post" %>
-  <%end%>
+      <%= form_for @comment do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :movie_id, value: @movie.id %>
+      <%= f.label "Comment" %>
+      <%= f.text_area :content %><br>
+      <%= f.submit  "Post" %>
+      <%end%>
 
 
- </div>
+    </div>
+
+  </section>
+  </div>
+
+
 
 </section>
