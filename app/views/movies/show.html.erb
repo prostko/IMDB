@@ -1,43 +1,68 @@
 
 <!-- Movie title will be place here. Probably wrapped in header tags. Will be able to display the title when information is parsed from OMDB API -->
-<h1 class= "center"><%= @movie.Title %></h1>
+
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
 <section class= "center", id="movie-info">
-  <img src="<%= @movie.Poster %>" style="height:80%;width:60%;display:inline-block;">
-  <ul style="display:inline-block;width:30%;vertical-align:top;">
-    <h2><%= @movie.Title %></h2>
-    <li><%= @movie.Year %></li>
-    <li><em>Released:</em> <%= @movie.Released %></li>
-    <li><em>Runtime:</em><%= @movie.Runtime %></li>
-    <li><em>Genre:</em><%= @movie.Genre %></li>
-    <li><em>Director:</em><%= @movie.Director %></li>
-    <li><em>Writer:</em><%= @movie.Writer %></li>
-    <li><em>Actors:</em><%= @movie.Actors %></li>
-    <li><em>Language:</em><%= @movie.Language %></li>
-    <li><em>Country:</em><%= @movie.Country %></li>
-    <li><em>Awards:</em><%= @movie.Awards %></li>
-    <li><em>Year:</em><%= @movie.Year %></li>
-    <li><em>Metascore:</em><%= @movie.Metascore %></li>
-    <li><em>IMDB Rating:</em><%= @movie.imdbRating %></li>
-    <li><em>IMDB Votes:</em><%= @movie.imdbVotes %></li>
-  </ul>
+  <div class="">
+    <ul>
+      <h2><%= @movie.Title %></h2>
+      <li><%= @movie.Year %></li>
+      <li class=""><%= @movie.Genre %></li>
+    </ul>
+  </div>
+
+  <div class="movie-card-container" style="display:inline-block;width:40%;">
+    <img class="card-content" src="<%= @movie.Poster %>" >
+    <div class="card-tabs">
+      <ul class="tabs">
+        <li class="tab"><a href="#cast">Cast</a></li>
+        <li class="tab"><a href="#year">Year</a></li>
+        <li class="tab"><a href="#country">Country</a></li>
+        <li class="tab"><a href="#awards">Awards</a></li>
+      </ul>
+    </div>
+    <div class="card-content">
+      <ul id="cast">
+        <li class=""><em>Director: </em><%= @movie.Director %></li>
+        <li class=""><em>Writer: </em><%= @movie.Writer %></li>
+        <li class=""><em>Actors: </em><%= @movie.Actors %></li>
+      </ul>
+      <ul id="year">
+        <li class=""><em>Released: </em> <%= @movie.Year %></li>
+        <li class=""><em>Released: </em> <%= @movie.Released %></li>
+        <li class=""><em>Runtime: </em><%= @movie.Runtime %></li>
+      </ul>
+      <ul id="country">
+        <li class=""><em>Language: </em><%= @movie.Language %></li>
+        <li class=""><em>Country: </em><%= @movie.Country %></li>
+      </ul>
+      <ul id="awards">
+        <li class=""><em>Awards: </em><%= @movie.Awards %></li>
+        <li class=""><em>Year: </em><%= @movie.Year %></li>
+        <li class=""><em>Metascore: </em><%= @movie.Metascore %></li>
+        <li class=""><em>IMDB Rating: </em><%= @movie.imdbRating %></li>
+        <li class=""><em>IMDB Votes: </em><%= @movie.imdbVotes %></li>
+      </ul>
+    </div>
+  </div>
+
+  <section id="related-movie-container container" style="display:inline-block;width:40%;vertical-align:top;">
+    <div style="display:flex;flex-direction:row;justify-content:center;">
+      <% if @related_movies %>
+      <ul>
+        <% @related_movies.each do |movie| %>
+        <li style="display:inline-block;"><%= link_to image_tag(movie.Poster, size: '140x200'), movie %></li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+  </section>
+  </div>
 
 
 
   <h4>Likes : <%= @movie.likes.count %></h4>
-</section>
-<section id="related-movie-container container">
-
-  <div style="display:flex;flex-direction:row;justify-content:center;width:98%;">
-    <% if @related_movies %>
-    <ul>
-      <% @related_movies.each do |movie| %>
-      <li style="display:inline-block;"><%= link_to image_tag(movie.Poster, size: '140x200'), movie %></li>
-      <% end %>
-    </ul>
-    <% end %>
-  </div>
 </section>
 
 <section id="like-movie-form">
