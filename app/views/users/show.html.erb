@@ -11,7 +11,7 @@
        <% @favorited_movies.each do |movie| %>
        <li class="collection-item avatar">
        <img src="<%=movie.Poster %>" alt="" class="circle">
-       <span class="title"> <%= link_to movie.Title, movie %> </span><a href="#delete_from_favorite" class="secondary-content"><i class="material-icons">grade</i></a>
+       <span class="title"> <%= link_to movie.Title, movie %> </span><a href=" /movies/<%=movie.id%>/like " class="secondary-content" ><i class="material-icons">grade</i></a>
        </li>
       <% end %>
 
@@ -23,7 +23,8 @@
 
   <div class="col s6">
   <h3>Watch list</h3>
-  <%if @favorited_movies%>
+  <%if @watchlist_movies%>
+  <ul class="collection">
     <% @favorited_movies.each do |movie|%>
       <li class="collection-item avatar">
        <img src="<%=movie.Poster %>" alt="" class="circle">
