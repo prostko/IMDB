@@ -50,8 +50,8 @@
     <div class="user-action-container" style="display:inline-block;float:left;vertical-align:top;margin-top:10%;">
       <section id="watch-list-form" style="display:inline-block;">
         <% if @errors %>
-          <% @errors.each do |err| %>
-            <%=err %>
+          <% @errors.each do |error| %>
+            <%=error %>
             <% end %>
         <% end %>
         <% if logged_in? %>
