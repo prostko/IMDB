@@ -72,6 +72,7 @@
   <%end%>
 
   <%= form_for @comment do |f| %>
+    <%= render "/error_messages" %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :movie_id, value: @movie.id %>
     <%= f.label "Comment" %>
