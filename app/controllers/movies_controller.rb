@@ -52,9 +52,17 @@ class MoviesController < ApplicationController
     require_user
     @movie = find_movie(params[:id])
     watchlist = @movie.watchlists.create(user_id: session[:user_id], movie_id: params[:movie_id])
-binding.pry
+
     activity_logger('watchlist', @movie) if watchlist.valid?
     redirect_to :back
+  end
+
+  def delete_from_watchlist
+    movie = Movie.find_by(id: params[:id])
+    @entry = Watchlist.where(movie_id: movie.id, user_id: current_user.id)
+
+    @entry.first.destroy
+    redirect_to "/users/#{current_user.id}"
   end
 
   private

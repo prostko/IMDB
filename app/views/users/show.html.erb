@@ -28,7 +28,7 @@
     <% @watchlist_movies.each do |movie|%>
       <li class="collection-item avatar">
        <img src="<%=movie.Poster %>" alt="" class="circle">
-       <span class="title"> <%= link_to movie.Title, movie %> </span><a href="#delete_from_watch_list" class="secondary-content"><i class="material-icons">grade</i></a>
+       <span class="title"> <%= link_to movie.Title, movie %> </span><a href="/movies/<%=movie.id%>/delete_from_watchlist" class="secondary-content"><i class="material-icons">grade</i></a>
       </li>
     <% end %>
   <% else %>
