@@ -1,6 +1,6 @@
 <section id="conversation">
   <div style="text-align:center;">
-  <h3>Comments:</h3>
+  <h2>Comments:</h3>
   <%if @comments%>
     <% @comments.each do |comment|%>
       <p><%=comment.content%></p>
@@ -39,6 +39,5 @@
     <%= f.text_area :content %><br>
     <%= f.submit  "Comment" %>
   <%end%>
-
   </div>
 </section>
