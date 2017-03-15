@@ -3,8 +3,8 @@
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
 <section class= "center", id="movie-info" style="margin-bottom:50px;">
-  <div class="" >
-    <ul>
+  <div class="container" >
+    <ul id="movie_title">
       <h2><%= @movie.Title %></h2>
       <li><%= @movie.Year %></li>
       <li class=""><%= @movie.Genre %></li>
@@ -44,13 +44,13 @@
         <li class=""><em>IMDB Votes: </em><%= @movie.imdbVotes %></li>
       </ul>
     </div>
-    <div class="divider"></div>
-    <div class="divider"></div>
+
+
     <div class="user-action-container" style="display:inline-block;float:left;vertical-align:top;margin-top:10%;">
       <section id="watch-list-form" style="display:inline-block;">
         <% if @errors %>
-          <% @errors.each do |err| %>
-            <%=err %>
+          <% @errors.each do |error| %>
+            <%=error %>
             <% end %>
         <% end %>
         <% if logged_in? %>
@@ -88,10 +88,11 @@
   </section>
 
 
-    <section id="converstaions">
+    <section id="conversations">
       <div style="text-align:center;">
+<div class="container">
 
-       <h3>Comments:</h3>
+       <h3>Comments</h3>
   <%if @comments%>
     <% @comments.each do |comment|%>
       <p><%=comment.content%></p>
@@ -99,28 +100,33 @@
       <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
 
       <% if comment.user_id == current_user.id %>
-      <%= link_to 'Delete Comment', comment_path(comment), method: :delete %> | <%= link_to 'Edit', edit_comment_path(comment) %>
+     <a href="/comments/<%=comment.id%>" class="btn-floating teal"><i class="material-icons">delete</i></a> <a href="/comments/<%=comment.id%>/edit" class="btn-floating teal"><i class="material-icons"> mode_edit</i></a>
 
-<a class="btn-floating red"><i class="material-icons">mode_edit</i></a> <a class="btn-floating red"><i class="material-icons">delete</i></a>
+    </div>
 
-      <div style="text-align:right;">
+      <div class="comment-box">
         <ul class="collection with-header">
 
         <% if comment.conversations %>
-        <% comment.conversations.each do |conversation|%>
-        <p><%=conversation.content%></p>
-        <p><%=conversation.user.name%></p>
+         <% comment.conversations.each do |conversation|%>
+        <li> <%=conversation.content%></li>
+        <li>By: <%=conversation.user.name%> </li>
+        <hr style="margin-left: 35%; margin-right: 35%;">
           <%end%>
         <%end%>
-
-        <%= form_for [comment, @conversation] do |f| %>
-       <%= f.hidden_field :user_id, value: current_user.id %>
-       <%= f.hidden_field :comment_id, value: comment.id %>
-       <%= f.label "Conversation" %>
-       <%= f.text_area :content %><br>
-       <%= f.submit  "Post" %>
-       <%end%>
         </ul>
+      </div>
+
+        <div class="conversation-post-box">
+        <%= form_for [comment, @conversation] do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :comment_id, value: comment.id %>
+        <%= f.label "Conversation" %><br>
+        <%= f.text_area :content %><br><br>
+        <%= f.submit  "Respond to This Post" %><br><br>
+
+        <%end%>
+
       </div>
 
       <%end%>
@@ -131,9 +137,9 @@
   <%= form_for @comment do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :movie_id, value: @movie.id %>
-    <%= f.label "Comment" %>
+    <!-- <%= f.label "PosComment" %> -->
     <%= f.text_area :content %><br>
-    <%= f.submit  "Comment" %>
+    <%= f.submit  "Post New Comment" %>
   <%end%>
       </div>
     </section>

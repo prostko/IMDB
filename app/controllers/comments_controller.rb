@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
   include ApplicationHelper
 
-  def new
-    @comment = Post.new(user_id: current_user.id, movie_id: params[:user_id])
-  end
+  # def new
+  #   @comment = Post.new(user_id: current_user.id, movie_id: params[:user_id])
+  # end
 
   def create
     @comment = Comment.new(comment_params)
@@ -44,8 +44,6 @@ class CommentsController < ApplicationController
     redirect_to movie_path(@comment.movie)
   end
 
-  def show
-  end
 
   private
   def comment_params
