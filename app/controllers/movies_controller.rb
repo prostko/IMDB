@@ -52,7 +52,7 @@ class MoviesController < ApplicationController
     require_user
     @movie = find_movie(params[:id])
     watchlist = @movie.watchlists.create(user_id: session[:user_id], movie_id: params[:movie_id])
-
+binding.pry
     activity_logger('watchlist', @movie) if watchlist.valid?
     redirect_to :back
   end

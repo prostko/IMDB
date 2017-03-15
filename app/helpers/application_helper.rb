@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   def current_user
     @current_user ||=User.find_by_id(session[:user_id])
   end
@@ -52,6 +52,7 @@ module ApplicationHelper
   end
 
   def activity_logger(action, obj_to_log)
+    trim_history
 
     time = " at #{current_time}"
 
@@ -79,6 +80,12 @@ module ApplicationHelper
 
   def current_time
     Time.now.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%l:%M, %d %b %Y")
+  end
+
+  def trim_history
+    if session[:history]
+      session[:history] = session[:history][0..15]
+    end
   end
 
 end
