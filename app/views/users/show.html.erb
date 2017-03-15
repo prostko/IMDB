@@ -6,7 +6,7 @@
 
   <div class="col s6">
     <h3><%=@user.name%>'s Favorite Movies:</h3>
-    <% if @favorited_movies %>
+    <% if !@favorited_movies.empty? %>
     <ul class="collection">
        <% @favorited_movies.each do |movie| %>
        <li class="collection-item avatar">
@@ -23,6 +23,7 @@
 
   <div class="col s6">
   <h3>Watch list</h3>
+
   <%if @watchlist_movies%>
     <% @watchlist_movies.each do |movie|%>
       <li class="collection-item avatar">
