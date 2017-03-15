@@ -17,7 +17,11 @@ class MoviesController < ApplicationController
   end
 
   def search
-    @movies = get_movies_by_title(params['search_form'])
+    if request.xhr?
+      @movies = get_movies_by_title(params["searchResult"])
+    else
+      @movies = get_movies_by_title(params['search_form'])
+    end
 
     if @movies
       @movies.map! do |movie|
@@ -25,13 +29,17 @@ class MoviesController < ApplicationController
       end
     end
 
-    if @movies
+
+    if @movies && !request.xhr?
       activity_logger('search', params['search_form'])
       render "movies/index"
+    elsif request.xhr?
+      render :json => @movies
     else
       @errors = 'Movie not found' # need to implement error message partials
       render 'movies/index'
     end
+
   end
 
   def like
