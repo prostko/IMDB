@@ -133,6 +133,9 @@
     <%end%>
   <%end%>
 
+<% if logged_in? %>
+
+
   <%= render '/error_messages' %>
   <%= form_for @comment do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
@@ -141,7 +144,24 @@
     <%= f.text_area :content %><br>
     <%= f.submit  "Post New Comment" %>
   <%end%>
+
+<% end %>
+
+ </div>
+
+</section>
+
+<section id="related-movie-container">
+  <% if @related_movies %>
+  <ul>
+    <% @related_movies.each do |movie| %>
+    <li><%= link_to image_tag(movie.Poster), movie %></li>
+    <% end %>
+  </ul>
+  <% end %>
+
       </div>
     </section>
   </div>
+
 </section>
