@@ -76,7 +76,7 @@ module ApplicationHelper
   end
 
   def current_time
-    Time.now.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")
+    Time.now.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%l:%M, %d %b %Y")
   end
 
 end
