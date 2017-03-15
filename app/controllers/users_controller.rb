@@ -23,9 +23,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @favorited_movies = @user.favorited_movies
     @watchlist_movies = @user.watchlist_movies
-    # binding.pry
     authorized(@user.id)
-    
+
   end
 
   def destroy
