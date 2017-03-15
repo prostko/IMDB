@@ -11,7 +11,7 @@
       <li class=""><%= @movie.Genre %></li>
     </ul>
   </div>
-
+<div class="divider"></div>
   <div class="movie-card-container" style="display:inline-block;width:55%;">
     <img class="card-content" src="<%= @movie.Poster %>" >
     <div class="card-tabs">
@@ -45,6 +45,34 @@
         <li class=""><em>IMDB Votes: </em><%= @movie.imdbVotes %></li>
       </ul>
     </div>
+    <div class="divider"></div>
+    <div class="user-action-container" style="display:inline-block;float:left;vertical-align:top;">
+      <section id="watch-list-form" style="display:inline-block;">
+        <% if @errors %>
+          <% @errors.each do |err| %>
+            <%=err %>
+            <% end %>
+        <% end %>
+        <% if logged_in? %>
+          <%= form_tag("/watchlists", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+            <%= hidden_field_tag("user_id", current_user.id) %>
+            <%= hidden_field_tag("imdbID", @movie.imdbID) %>
+            <%= hidden_field_tag("movie_title", @movie.Title) %>
+            <%= submit_tag("Add movie to your watchlist") %>
+          <% end %>
+        <% else %>
+        <%= "You need to be logged in to save movies to your watch list." %>
+        <% end %>
+      </section>
+      <section id="like-movie-form" style="display:inline-block;">
+        <% if logged_in? %>
+          <%= form_tag("/movies/#{@movie.id}/like", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+            <%= submit_tag("&#128077;".html_safe) %>
+          <% end %>
+        <% end %>
+        <h5 style="display:inline-block;">Likes : <%= @movie.likes.count %></h5>
+      </section>
+    </div>
   </div>
 
   <section id="related-movie-container container" style="display:inline-block;width:40%;vertical-align:top;">
@@ -59,33 +87,6 @@
     </div>
   </section>
 
-<div class="user-action-container" style="display:block;float:left;vertical-align:top;">
-  <section id="like-movie-form">
-    <h4>Likes : <%= @movie.likes.count %></h4>
-    <% if logged_in? %>
-    <%= form_tag("/movies/#{@movie.id}/like", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
-    <%= submit_tag("&#128077;".html_safe) %>
-    <% end %>
-    <% end %>
-  </section>
-  <section id="watch-list-form">
-    <% if @errors %>
-    <% @errors.each do |err| %>
-    <%=err %>
-    <% end %>
-    <% end %>
-    <% if logged_in? %>
-    <%= form_tag("/watchlists", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
-    <%= hidden_field_tag("user_id", current_user.id) %>
-    <%= hidden_field_tag("imdbID", @movie.imdbID) %>
-    <%= hidden_field_tag("movie_title", @movie.Title) %>
-    <%= submit_tag("Add movie to your watchlist") %>
-    <% end %>
-    <% else %>
-    <%= "You need to be logged in to save movies to your watch list." %>
-    <% end %>
-  </section>
-</div>
 
   <section id="converstaions">
     <div style="text-align:center;">
