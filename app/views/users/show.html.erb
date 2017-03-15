@@ -23,13 +23,12 @@
 
   <div class="col s6">
   <h3>Watch list</h3>
-  <%if @watch_list%>
-    <% @watch_lists.each do |movie|%>
+  <%if @favorited_movies%>
+    <% @favorited_movies.each do |movie|%>
       <li class="collection-item avatar">
        <img src="<%=movie.Poster %>" alt="" class="circle">
        <span class="title"> <%= link_to movie.Title, movie %> </span><a href="#delete_from_watch_list" class="secondary-content"><i class="material-icons">grade</i></a>
-       </li>
-
+      </li>
     <% end %>
   <% else %>
       <p>You have no Movies in Favorite List yet </p>
