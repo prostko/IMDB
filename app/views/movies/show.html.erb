@@ -58,7 +58,7 @@
 <!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
 <section id="converstaions">
   <div style="text-align:center;">
-  
+
   <h3>Comments:</h3>
   <%if @comments%>
     <% @comments.each do |comment|%>
@@ -66,8 +66,8 @@
       <p><%=comment.user.name%></p>
       <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
       <% if comment.user_id == current_user.id %>
-      <%= link_to 'Delete', comment_path(comment), method: :delete %> 
-      <%end%> 
+      <%= link_to 'Delete', comment_path(comment), method: :delete %>
+      <%end%>
     <%end%>
   <%end%>
 
@@ -82,4 +82,14 @@
 
  </div>
 
+</section>
+
+<section id="related-movie-container">
+  <% if @related_movies %>
+  <ul>
+    <% @related_movies.each do |movie| %>
+    <li><%= link_to image_tag(movie.Poster), movie %></li>
+    <% end %>
+  </ul>
+  <% end %>
 </section>
