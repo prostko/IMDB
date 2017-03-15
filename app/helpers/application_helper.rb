@@ -52,6 +52,7 @@ module ApplicationHelper
   end
 
   def activity_logger(action, obj_to_log)
+    trim_history
 
     time = " at #{current_time}"
 
@@ -65,6 +66,8 @@ module ApplicationHelper
         unshift_session(["You liked '#{obj_to_log.Title}'", time])
       when 'comment'
         unshift_session(["You commented on '#{obj_to_log.Title}'", time])
+      when 'watchlist'
+        unshift_session(["You added '#{obj_to_log.Title}' to your watch list", time])
       end
     end
   end
@@ -76,7 +79,13 @@ module ApplicationHelper
   end
 
   def current_time
-    Time.now.strftime(": %I:%M%p on %m/%d/%Y")
+    Time.now.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%l:%M, %d %b %Y")
+  end
+
+  def trim_history
+    if session[:history]
+      session[:history] = session[:history][0..15]
+    end
   end
 
 end

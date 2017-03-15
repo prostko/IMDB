@@ -6,7 +6,7 @@
 
   <div class="col s6">
     <h3><%=@user.name%>'s Favorite Movies:</h3>
-    <% if @favorited_movies %>
+    <% if !@favorited_movies.empty? %>
     <ul class="collection">
        <% @favorited_movies.each do |movie| %>
        <li class="collection-item avatar">
@@ -25,7 +25,7 @@
   <h3>Watch list</h3>
   <%if @watchlist_movies%>
   <ul class="collection">
-    <% @favorited_movies.each do |movie|%>
+    <% @watchlist_movies.each do |movie|%>
       <li class="collection-item avatar">
        <img src="<%=movie.Poster %>" alt="" class="circle">
        <span class="title"> <%= link_to movie.Title, movie %> </span><a href="#delete_from_watch_list" class="secondary-content"><i class="material-icons">grade</i></a>

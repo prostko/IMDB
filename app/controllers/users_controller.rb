@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
     if @new_user.save
       session[:user_id] = @new_user.id
-      session[:history] = ["You logged in at #{Time.now}"]
+      session[:history]=[["Created New Profile", " at #{current_time}"]]
       redirect_to user_path(@new_user.id)
     else
       render 'new'
@@ -18,14 +18,15 @@ class UsersController < ApplicationController
 
   end
 
-
   def show
     require_user
     @user = User.find(params[:id])
     @favorited_movies = @user.favorited_movies
+    @watchlist_movies = @user.watchlist_movies
+    # binding.pry
     authorized(@user.id)
+    
   end
-
 
   def destroy
   end
@@ -36,8 +37,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password)
   end
 
-  # def edit
-  # end
-  # def update
-  # end
 end

@@ -13,6 +13,7 @@ class CommentsController < ApplicationController
       activity_logger('comment', @movie)
       redirect_to movie_path(@movie)
     else
+      @errors = ["Posts cannot be empty"]
       render 'movies/show'
     end
   end

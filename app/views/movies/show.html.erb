@@ -1,64 +1,97 @@
-
 <!-- Movie title will be place here. Probably wrapped in header tags. Will be able to display the title when information is parsed from OMDB API -->
-<h1 class= "center"><%= @movie.Title %></h1>
+
 
 <!-- This is the section for individual movie information. The parsed data should be able to be place into each li element once the response attributes are finalized.-->
-<section class= "center", id="movie-info">
+<section class= "center", id="movie-info" style="margin-bottom:50px;">
+  <div class="" >
+    <ul>
+      <h2><%= @movie.Title %></h2>
+      <li><%= @movie.Year %></li>
+      <li class=""><%= @movie.Genre %></li>
+    </ul>
+  </div>
+<div class="divider"></div>
+  <div class="movie-card-container" style="display:inline-block;width:55%;">
+    <img class="card-content" src="<%= @movie.Poster %>" >
+    <div class="card-tabs">
+      <ul class="tabs">
+        <li class="tab"><a href="#cast">Cast</a></li>
+        <li class="tab"><a href="#year">Year</a></li>
+        <li class="tab"><a href="#country">Country</a></li>
+        <li class="tab"><a href="#awards">Awards</a></li>
+      </ul>
+    </div>
+    <div class="card-content">
+      <ul id="cast">
+        <li class=""><em>Director: </em><%= @movie.Director %></li>
+        <li class=""><em>Writer: </em><%= @movie.Writer %></li>
+        <li class=""><em>Actors: </em><%= @movie.Actors %></li>
+      </ul>
+      <ul id="year">
+        <li class=""><em>Released: </em> <%= @movie.Year %></li>
+        <li class=""><em>Released: </em> <%= @movie.Released %></li>
+        <li class=""><em>Runtime: </em><%= @movie.Runtime %></li>
+      </ul>
+      <ul id="country">
+        <li class=""><em>Language: </em><%= @movie.Language %></li>
+        <li class=""><em>Country: </em><%= @movie.Country %></li>
+      </ul>
+      <ul id="awards">
+        <li class=""><em>Awards: </em><%= @movie.Awards %></li>
+        <li class=""><em>Year: </em><%= @movie.Year %></li>
+        <li class=""><em>Metascore: </em><%= @movie.Metascore %></li>
+        <li class=""><em>IMDB Rating: </em><%= @movie.imdbRating %></li>
+        <li class=""><em>IMDB Votes: </em><%= @movie.imdbVotes %></li>
+      </ul>
+    </div>
+    <div class="divider"></div>
+    <div class="divider"></div>
+    <div class="user-action-container" style="display:inline-block;float:left;vertical-align:top;margin-top:10%;">
+      <section id="watch-list-form" style="display:inline-block;">
+        <% if @errors %>
+          <% @errors.each do |err| %>
+            <%=err %>
+            <% end %>
+        <% end %>
+        <% if logged_in? %>
+          <%= form_tag("/movies/#{@movie.id}/watchlist", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+            <%= hidden_field_tag("user_id", current_user.id) %>
+            <%= hidden_field_tag("movie_id", @movie.id) %>
+            <%= submit_tag("Add movie to your watchlist") %>
+          <% end %>
+        <% else %>
+        <%= "You need to be logged in to save movies to your watch list." %>
+        <% end %>
+      </section>
+      <section id="like-movie-form" style="display:inline-block;">
+        <% if logged_in? %>
+          <%= form_tag("/movies/#{@movie.id}/like", method: "post", :class => 'waves-effect waves-teal btn-flat') do %>
+            <%= submit_tag("&#128077;".html_safe) %>
+          <% end %>
+        <% end %>
+        <h5 style="display:inline-block;">Likes : <%= @movie.likes.count %></h5>
+      </section>
+    </div>
+  </div>
 
-  <img src="<%= @movie.Poster %>">
-  <ul>
-    <h2><%= @movie.Title %></h2>
-    <li><%= @movie.Year %></li>
-    <li><em>Released:</em> <%= @movie.Released %></li>
-    <li><em>Runtime:</em><%= @movie.Runtime %></li>
-    <li><em>Genre:</em><%= @movie.Genre %></li>
-    <li><em>Director:</em><%= @movie.Director %></li>
-    <li><em>Writer:</em><%= @movie.Writer %></li>
-    <li><em>Actors:</em><%= @movie.Actors %></li>
-    <li><em>Language:</em><%= @movie.Language %></li>
-    <li><em>Country:</em><%= @movie.Country %></li>
-    <li><em>Awards:</em><%= @movie.Awards %></li>
-    <li><em>Year:</em><%= @movie.Year %></li>
-    <li><em>Metascore:</em><%= @movie.Metascore %></li>
-    <li><em>IMDB Rating:</em><%= @movie.imdbRating %></li>
-    <li><em>IMDB Votes:</em><%= @movie.imdbVotes %></li>
-  </ul>
-
-  <h4>Likes : <%= @movie.likes.count %></h4>
-</section>
-
-<section id="like-movie-form">
-  <% if logged_in? %>
-    <%= form_tag("/movies/#{@movie.id}/like", method: "post") do %>
-      <%= submit_tag("&#128077;".html_safe) %>
-    <% end %>
-  <% end %>
-</section>
+  <section id="related-movie-container container" style="display:inline-block;width:40%;vertical-align:top;">
+    <div style="display:flex;flex-direction:row;justify-content:center;">
+      <% if @related_movies %>
+      <ul>
+        <% @related_movies.each do |movie| %>
+        <li style="display:inline-block;"><%= link_to image_tag(movie.Poster, size: '140x200'), movie %></li>
+        <% end %>
+      </ul>
+      <% end %>
+    </div>
+    <div class="divider"></div>
+  </section>
 
 
-<section>
-  <% if @errors %>
-    <% @errors.each do |err| %>
-      <%=err %>
-    <% end %>
-  <% end %>
-  <% if logged_in? %>
-    <%= form_tag("/watchlists", method: "post") do %>
-      <%= hidden_field_tag("user_id", current_user.id) %>
-      <%= hidden_field_tag("imdbID", @movie.imdbID) %>
-      <%= hidden_field_tag("movie_title", @movie.Title) %>
-      <%= submit_tag("Add movie to your watchlist") %>
-    <% end %>
-    <% else %>
-      <%= "You need to be logged in to save movies to your watch list." %>
-  <% end %>
-</section>
+    <section id="converstaions">
+      <div style="text-align:center;">
 
-
-<!-- This is going to be the section where conversations on the movie are going to be placed. Almost certain we'll be iterating through the conversations stored in our database for the topics that get displayed here. Will be creating a helper method to pull the info we need from our database to display to the user.-->
-<section id="converstaions">
-  <div style="text-align:center;">
-  <h3>Comments:</h3>
+       <h3>Comments:</h3>
   <%if @comments%>
     <% @comments.each do |comment|%>
       <p><%=comment.content%></p>
@@ -66,15 +99,16 @@
       <p><%=comment.created_at.to_datetime.in_time_zone("Central Time (US & Canada)").strftime("%A, %d %b %Y")%></p>
       <% if comment.user_id == current_user.id %>
       <%= link_to 'Delete Comment', comment_path(comment), method: :delete %>
+
       <div style="text-align:right;">
         <ul class="collection with-header">
         <% if comment.conversations %>
         <% comment.conversations.each do |conversation|%>
-
         <p><%=conversation.content%></p>
         <p><%=conversation.user.name%></p>
+          <%end%>
         <%end%>
-        <%end%>
+
         <%= form_for [comment, @conversation] do |f| %>
        <%= f.hidden_field :user_id, value: current_user.id %>
        <%= f.hidden_field :comment_id, value: comment.id %>
@@ -82,11 +116,13 @@
        <%= f.text_area :content %><br>
        <%= f.submit  "Post" %>
        <%end%>
+        </ul>
+      </div>
+
       <%end%>
     <%end%>
   <%end%>
-        </ul>
-</div>
+
   <%= form_for @comment do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :movie_id, value: @movie.id %>
@@ -94,18 +130,7 @@
     <%= f.text_area :content %><br>
     <%= f.submit  "Comment" %>
   <%end%>
-
-
- </div>
-
-</section>
-
-<section id="related-movie-container">
-  <% if @related_movies %>
-  <ul>
-    <% @related_movies.each do |movie| %>
-    <li><%= link_to image_tag(movie.Poster), movie %></li>
-    <% end %>
-  </ul>
-  <% end %>
+      </div>
+    </section>
+  </div>
 </section>

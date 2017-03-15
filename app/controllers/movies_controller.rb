@@ -43,11 +43,19 @@ class MoviesController < ApplicationController
     redirect_to :back
   end
 
-
   def destroy_like
     @movie = Movie.find(params[:id])
     @like = Like.where(movie_id: @movie.id, user_id: session[:user_id])
     @like.first.destroy
+    redirect_to :back
+  end
+
+  def watchlist
+    require_user
+    @movie = find_movie(params[:id])
+    watchlist = @movie.watchlists.create(user_id: session[:user_id], movie_id: params[:movie_id])
+
+    activity_logger('watchlist', @movie) if watchlist.valid?
     redirect_to :back
   end
 

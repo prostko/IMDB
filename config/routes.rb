@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post '/search', to: 'movies#search'
   post '/movies/:id/like', to: 'movies#like'
   get '/movies/:id/like', to: 'movies#destroy_like'
-  post '/watchlists', to: 'watchlists#create'
+  post '/movies/:id/watchlist', to:'movies#watchlist'
+
 
 end
