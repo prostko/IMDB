@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   post '/search', to: 'movies#search'
   post '/movies/:id/like', to: 'movies#like'
-  post '/watchlists', to: 'watchlists#create'
+  post '/movies/:id/watchlist', to:'movies#watchlist'
 
 end
