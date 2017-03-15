@@ -59,6 +59,14 @@ class MoviesController < ApplicationController
     redirect_to :back
   end
 
+  def delete_from_watchlist
+    movie = Movie.find_by(id: params[:id])
+    @entry = Watchlist.where(movie_id: movie.id, user_id: current_user.id)
+
+    @entry.first.destroy
+    redirect_to "/users/#{current_user.id}"
+  end
+
   private
   def find_movie(id)
     Movie.find_by(id: id)
