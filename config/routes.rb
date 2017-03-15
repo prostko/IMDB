@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :comments do
+  resources :comments, only: [:create, :edit, :update, :destroy] do
     resources :conversations, only: [:create, :edit, :destroy]
   end
 
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/movies/:id/like', to: 'movies#destroy_like'
   post '/movies/:id/watchlist', to:'movies#watchlist'
   get '/movies/:id/delete_from_watchlist', to: 'movies#delete_from_watchlist'
+  get '/comments/:id', to: 'comments#destroy'
 
 
 end
