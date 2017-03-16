@@ -12,10 +12,8 @@ class Movie < ApplicationRecord
 
   def related_movies
     first_word = self.Title.split(' ')[0]
-    # binding.pry
     if first_word == 'The' || first_word == 'the'
       first_word = self.Title.split(' ')[1]
-      # binding.pry
     end
     related_pictures = Movie.where("movies.Title LIKE ?", "%" + first_word + "%").limit(7)
   end
