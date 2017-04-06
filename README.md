@@ -1,9 +1,11 @@
-# README
+# IMBD Clone
+
+### This was a simple project where we created an IMDB Clone using Ruby on Rails, React, Javascript and Bootstrap. We completed this application in 2 days. It relies on API calls to the OMDB database, an online movies database.
+
+
 Team Members
 1. Eric Prostko
 2. Tatiana Ambramova
-3. Karan Shetty
-4. Jordan Beth
 5. Adedotun Oni
 
 Ruby version 2.3.0
